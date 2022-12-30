@@ -1,0 +1,30 @@
+<h1>address-list</h1>
+
+
+<table class="table table-striped"> 
+
+    <thead>
+        <th>StudentId</th>
+        <th> AddressId</th>
+        <th> Area</th>
+        <th>City</th>
+        <th>District</th>
+        <th>AddressType</th>
+        <!-- <th>Changes</th> -->
+    </thead>
+<tbody>
+    <tr *ngFor = "let x of address">
+        <td> {{x.student.studentId}}</td>
+        <td> {{x.addId}}</td>
+        <td> {{x.area}}</td>
+        <td> {{x.city}}</td>
+        <td> {{x.district}}</td>
+        <td> {{x.addressType}}</td>
+        <!-- <td>
+            <button (click) = "deletStudentById(x.studentId)" class="btn btn-danger" style="margin-left: 20px">Delete</button>
+        </td> -->
+    </tr>
+
+</tbody>
+
+</table>

@@ -1,0 +1,8 @@
+#preNext{
+    cursor: pointer;
+    
+}
+
+#preNext:hover{
+    background-color: rgb(107, 107, 150);
+}

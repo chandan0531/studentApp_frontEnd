@@ -1,0 +1,40 @@
+<h1>add-student details</h1>
+
+<form #form = "ngForm" (ngSubmit) = "onSubmit()">
+
+
+    <div class="form-group">
+        <label>name</label>
+        <input type="text" class="form-control"  required #na = "ngModel" id="name"  [(ngModel)] = "studentDto.name" name="name"  placeholder="Enter Name"/>
+        
+    <span *ngIf="na.invalid && na.touched" style="color: red;"> Please enter Name</span>
+    </div>
+    
+    <div class="form-group">
+        <label>gender</label>
+        <input type="text" class="form-control" required #gen = "ngModel" id="gender" [(ngModel)] = "studentDto.gender" name="gender" placeholder="Enter Gender"/>
+        
+        <span *ngIf="gen.invalid && gen.touched" style="color: red;"> Please enter Gender</span>
+    </div>
+    
+    <div class="form-group">
+        <label>cellPhone</label>
+        <input type="text" class="form-control" minlength="10" maxlength="10" required #cell = "ngModel" id="cellPhone" [(ngModel)] = "studentDto.cellPhone" name="cellPhone" placeholder="Enter Moble Number" />
+        <span *ngIf="cell.invalid && cell.touched" style="color: red;"> Please enter Mobile No.</span>
+    </div>
+
+    <div class="form-group">
+        <label>email</label>
+        <input type="text" class="form-control" required #email = "ngModel" email id="email" [(ngModel)] = "studentDto.email" name="email" placeholder="Enter Email" />
+        <span *ngIf="email.invalid && email.touched" style="color: red;"> Please enter Email Id</span>
+    </div>
+<!-- 
+    <div class="form-group">
+        <label>cousreId</label>
+        <input type="text" class="form-control"  required #couid = "ngModel" id="cousreId"  [(ngModel)] = "student" name="cousreId"  placeholder="Enter cousreId"/>
+        
+    <span *ngIf="couid.invalid && couid.touched" style="color: red;"> Please enter cousrId</span>
+    </div> -->
+
+    <button [disabled] = "form.invalid" class="btn btn-success" type="submit"> Add</button>
+    </form>

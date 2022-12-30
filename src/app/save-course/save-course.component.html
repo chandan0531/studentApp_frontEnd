@@ -1,0 +1,37 @@
+<p>save-course works!</p>
+
+<form #form = "ngForm" (ngSubmit) = "onSubmit()">
+
+    
+    <div class="form-group">
+        <label>courseName</label>
+        <input type="text" class="form-control" required #cour = "ngModel" id="courseName" [(ngModel)] = "course.courseName" name="courseName" placeholder="Enter the Course"/>
+        <span *ngIf="cour.invalid && cour.touched" style="color: red;"> Please Enter the course</span>
+    </div>
+    
+    <div class="form-group">
+        <label>description</label>
+        <input type="text" class="form-control" required #des = "ngModel" id="description" [(ngModel)] = "course.description" name="description" placeholder="Enter the description" />
+        <span *ngIf="des.invalid && des.touched" style="color: red;"> Please Enter the description</span>
+    </div>
+    
+    <div class="form-group">
+        <label>courseType</label>
+        <input type="text" class="form-control" required #type = "ngModel" id="courseType" [(ngModel)] = "course.courseType" name="courseType" placeholder="Enter the courseType"/>
+    <span *ngIf = "type.invalid && type.touched" style="color: red;">Please Enter the courseType</span>
+    </div>
+
+    <div class="form-group">
+        <label>duration</label>
+        <input type="text" class="form-control" required #dur = "ngModel" pattern="^[0-9]{1,3}?$" id="duration" [(ngModel)] = "course.duration" name="duration" placeholder="Enter the Course duration" />
+        <span *ngIf="dur.invalid && dur.touched" style="color: red;"> Please Enter the duration</span>
+    </div>
+
+    <div class="form-group">
+        <label>topics</label>
+        <input type="text" class="form-control" required #top = "ngModel" id="topics" [(ngModel)] = "course.topics" name="topics" placeholder="Enter the Course topics" />
+        <span *ngIf= "top.invalid && top.touched" style="color: red;">Please Enter the Topic</span>
+    </div>
+
+    <button  [disabled] = "form.invalid" class="btn btn-success" type="submit"> Save</button>
+    </form>

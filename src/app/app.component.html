@@ -1,0 +1,34 @@
+<h1>StudentApplication</h1>
+
+<nav class="navbar navbar-dark bg-dark">
+  <ul class="navabr-nav">
+
+
+    <li class="navbar-item">
+      <a routerLink="courses" routerLinkActive="active" class="nav-link">Course list</a>
+    </li>
+
+    <li>
+      <a routerLink="savecourses" routerLinkActive="active" class="nav-link">Add Course</a>
+    </li>
+
+    <li class="navbar-item">
+      <a routerLink="students" routerLinkActive="active" class="nav-link">Students list</a>
+    </li>
+
+
+    <li class="navbar-item">
+      <a routerLink="addresses" routerLinkActive="active" class="nav-link">Address list</a>
+    </li>
+
+
+
+  </ul>
+</nav>
+<div class="container">
+  <!-- <app-student-list></app-student-list> -->
+ 
+  <!-- after rounting -->
+  <router-outlet></router-outlet>
+
+</div>

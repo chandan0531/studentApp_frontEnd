@@ -1,0 +1,93 @@
+<p>course-list</p>
+
+<div class="form-outline">
+  <input type="text" class="form-control" #box (keyup)="getData(box.value)" placeholder="Search" />
+  
+</div>
+
+
+<!-- <input type="text"  #box (input)="getData(box.value)" placeholder="Search by course name"> -->
+
+<table class="table table-striped"> 
+
+    <thead>
+
+        <th > courseId <button type="button" class="btn btn-default btn-sm" (click) = "sortByCourseId()">
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextCI}}
+          </button></th>
+
+        <th> courseName <button type="button" class="btn btn-default btn-sm" (click) = "sortByCourseName()">
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextCN}}
+          </button></th>
+        <th>description <button type="button" class="btn btn-default btn-sm"  (click) = "sortByDescription()">
+          <span class="glyphicon glyphicon-sort"></span> {{buttonTextDes}}
+        </button></th>
+
+        <th>courseType
+          <button type="button" class="btn btn-default btn-sm"  (click) = "sortByCourseType()">
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextCT}}
+          </button>
+        </th>
+        <th>duration <button type="button" class="btn btn-default btn-sm" (click) = "sortByDuration()">
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextD}}
+          </button></th>
+
+        <th>topics 
+          <button type="button" class="btn btn-default btn-sm" (click) = "sortByTopic()">
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextT}}
+          </button>
+        </th>
+        <!-- <th>Edit Course</th> -->
+        <th>Add Student</th>
+    </thead>
+<tbody>
+
+        
+    
+    <tr *ngFor = "let x of courseRespone,students"> 
+  
+        <td> {{x.courseId}}</td>
+        <td> {{x.courseName}}</td>
+        <td> {{x.description}}</td>
+        <td> {{x.courseType}}</td>
+        <td> {{x.duration}}</td>
+        <td> {{x.topics}}</td>
+        <!-- <td>
+            <button (click) = "updateCourseById(x.courseId)" class="btn btn-danger" style="margin-left: 20px">Edit</button>
+        </td> -->
+        <td>
+            <button  (click) = "addStudentByCourseId(x.courseId)" class="btn btn-info">Add Student</button>
+           
+        </td>
+    </tr>
+
+</tbody>
+
+</table>
+
+<!-- <select>
+  <option>2</option>
+  <option>3</option>
+  <option>5</option>
+  <option>10</option>
+</select> -->
+<span style="margin-right: 5px;">PageSize</span>
+<select class="form-select" aria-label="Default select example" #val (change)="getPageSize(val.value)">
+  <!-- <option value="2">2</option> -->
+  <option value="3">3</option>
+  <option value="5">5</option>
+  <option value="10">10</option>
+</select>
+
+
+  <ul class="nav nav-pills"  style="margin-top: 10px;">
+    <a class ="nav-link" id="preNext"  (click) = "setPageNoPre()"> pre </a>
+    <li class="nav-item" *ngFor = "let x of pages; let i=index">
+      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i}}</a>
+    </li>
+    <a class ="nav-link" id="preNext"  (click) = "setPageNoNext()"> Next </a>
+  </ul>
+
+
+
+
