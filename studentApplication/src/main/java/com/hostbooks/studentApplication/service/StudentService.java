@@ -1,6 +1,7 @@
 package com.hostbooks.studentApplication.service;
 
 import com.hostbooks.studentApplication.dto.StudentDto;
+import com.hostbooks.studentApplication.dto.StudentResponse;
 import com.hostbooks.studentApplication.entities.Student;
 import com.hostbooks.studentApplication.exception.CourseException;
 import com.hostbooks.studentApplication.exception.StudentException;
@@ -44,4 +45,7 @@ public interface StudentService {
 
     //from DTO
     public  Student addStudentByDto(StudentDto studentDto);
+
+
+    public StudentResponse getAllStudentByPaginationCriteria(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 }

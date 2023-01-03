@@ -1,5 +1,6 @@
 package com.hostbooks.studentApplication.controller;
 
+import com.hostbooks.studentApplication.dto.CriteriaResponse;
 import com.hostbooks.studentApplication.dto.PageConstants;
 import com.hostbooks.studentApplication.dto.CourseResponse;
 import com.hostbooks.studentApplication.entities.Course;
@@ -58,5 +59,23 @@ public class CourseController {
 
         return new  ResponseEntity<>(courses, HttpStatus.ACCEPTED);
     }
+
+
+
+    @GetMapping("api/coursePageCriteria")
+    ResponseEntity<CriteriaResponse> getAllCourseByPageControllerCriteria(
+            @RequestParam(value = "title", defaultValue = "", required = false) String title,
+            @RequestParam(value = "pageNo", defaultValue = PageConstants.DEFAULT_PAGE_NUMBER, required = false) Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = PageConstants.DEFAULT_PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = PageConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = PageConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ){
+
+        CriteriaResponse courses = courseService.getAllCourseByPaginationCriteria(title, pageNo,pageSize, sortBy, sortDir);
+
+        return new  ResponseEntity<>(courses, HttpStatus.ACCEPTED);
+    }
+
+
 
 }

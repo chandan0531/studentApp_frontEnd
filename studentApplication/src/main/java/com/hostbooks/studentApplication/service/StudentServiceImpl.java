@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hostbooks.studentApplication.dto.StudentDto;
+import com.hostbooks.studentApplication.dto.StudentResponse;
 import com.hostbooks.studentApplication.entities.Address;
 import com.hostbooks.studentApplication.entities.Course;
 import com.hostbooks.studentApplication.entities.Student;
@@ -261,6 +262,11 @@ public class StudentServiceImpl implements StudentService{
 
 
         }
+    }
+
+    @Override
+    public StudentResponse getAllStudentByPaginationCriteria(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+        return  customDaoInterface.getFilterStudent(name,pageNumber,pageSize,sortBy,sortDir);
     }
 
 

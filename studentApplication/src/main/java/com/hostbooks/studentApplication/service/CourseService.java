@@ -1,6 +1,7 @@
 package com.hostbooks.studentApplication.service;
 
 import com.hostbooks.studentApplication.dto.CourseResponse;
+import com.hostbooks.studentApplication.dto.CriteriaResponse;
 import com.hostbooks.studentApplication.entities.Course;
 import com.hostbooks.studentApplication.exception.CourseException;
 import com.hostbooks.studentApplication.exception.StudentException;
@@ -16,8 +17,10 @@ public interface CourseService {
 
     public List<Course> getAllCourses() throws CourseException;
 
-    public  Course getCourseByCourseId(Integer courseId) throws CourseException;
+    public Course getCourseByCourseId(Integer courseId) throws CourseException;
 
     public CourseResponse getAllCourseInPage(String tile, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
+
+    public CriteriaResponse getAllCourseByPaginationCriteria(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 }

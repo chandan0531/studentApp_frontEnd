@@ -1,7 +1,10 @@
 package com.hostbooks.studentApplication.controller;
 
 
+import com.hostbooks.studentApplication.dto.CriteriaResponse;
+import com.hostbooks.studentApplication.dto.PageConstants;
 import com.hostbooks.studentApplication.dto.StudentDto;
+import com.hostbooks.studentApplication.dto.StudentResponse;
 import com.hostbooks.studentApplication.entities.Student;
 import com.hostbooks.studentApplication.exception.MyError;
 import com.hostbooks.studentApplication.service.AddressService;
@@ -155,6 +158,22 @@ public class StudentController {
         List<Student> stds = sService.getStudentByMobileCriteria(mobile);
 
         return new ResponseEntity<List<Student>>(stds,HttpStatus.ACCEPTED);
+    }
+
+
+
+    @GetMapping("api/studentPageCriteria")
+    ResponseEntity<StudentResponse> getAllStudentsByPageControllerCriteria(
+            @RequestParam(value = "title", defaultValue = "", required = false) String title,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "2", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "studentId", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
+    ){
+
+        StudentResponse studentResponse = sService.getAllStudentByPaginationCriteria(title, pageNo,pageSize, sortBy, sortDir);
+
+        return new  ResponseEntity<>(studentResponse, HttpStatus.ACCEPTED);
     }
 
 }

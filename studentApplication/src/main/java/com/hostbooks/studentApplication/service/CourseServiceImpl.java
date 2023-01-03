@@ -1,11 +1,13 @@
 package com.hostbooks.studentApplication.service;
 
 import com.hostbooks.studentApplication.dto.CourseResponse;
+import com.hostbooks.studentApplication.dto.CriteriaResponse;
 import com.hostbooks.studentApplication.entities.Course;
 import com.hostbooks.studentApplication.entities.Student;
 import com.hostbooks.studentApplication.exception.CourseException;
 import com.hostbooks.studentApplication.exception.StudentException;
 import com.hostbooks.studentApplication.repository.CourseDao;
+import com.hostbooks.studentApplication.repository.CustomDaoInterface;
 import com.hostbooks.studentApplication.repository.StudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseDao cDao;
@@ -26,11 +28,14 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private StudentDao sDao;
 
+    @Autowired
+    private CustomDaoInterface customDaoInterface;
+
     @Override
     public String saveCourseDetails(Course course) throws CourseException {
 
-            cDao.save(course);
-            return "Course added";
+        cDao.save(course);
+        return "Course added";
 
 
     }
@@ -38,17 +43,14 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course getCoursesByStudentId(Integer stdId) throws StudentException {
 
-        Optional<Student> optional =  sDao.findById(stdId);
-        if(!optional.isPresent())
-        {
-          throw  new StudentException("Student not found with : " + stdId);
-        }
-        else
-        {
+        Optional<Student> optional = sDao.findById(stdId);
+        if (!optional.isPresent()) {
+            throw new StudentException("Student not found with : " + stdId);
+        } else {
             Student student = optional.get();
             Course courses = student.getCourse();
 
-                return courses;
+            return courses;
 
         }
 
@@ -58,12 +60,9 @@ public class CourseServiceImpl implements CourseService{
     public List<Course> getAllCourses() throws CourseException {
 
         List<Course> courses = cDao.findAll();
-        if(courses.size()>0)
-        {
+        if (courses.size() > 0) {
             return courses;
-        }
-        else
-        {
+        } else {
             throw new CourseException("No courses available");
         }
     }
@@ -71,37 +70,33 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course getCourseByCourseId(Integer courseId) throws CourseException {
 
-       Optional<Course> optional =  cDao.findById(courseId);
-        if(optional.isPresent())
-        {
-           System.out.println(optional.get().getStudent().getStudentId());
+        Optional<Course> optional = cDao.findById(courseId);
+        if (optional.isPresent()) {
+            System.out.println(optional.get().getStudent().getStudentId());
             return optional.get();
-        }
-        else
-        {
-            throw  new CourseException("No course is not with : " + courseId);
+        } else {
+            throw new CourseException("No course is not with : " + courseId);
         }
     }
 
     @Override
-    public CourseResponse getAllCourseInPage(String tile,Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+    public CourseResponse getAllCourseInPage(String tile, Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
 
         Sort sort = null;
-        if(sortDir.equalsIgnoreCase("asc")){
+        if (sortDir.equalsIgnoreCase("asc")) {
             sort = Sort.by(sortBy).ascending();
-        }
-        else {
+        } else {
             sort = Sort.by(sortBy).descending();
         }
 
 //        Sort sort = (sortDir.equalsIgnoreCase("asc"))?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
-        Pageable p =  PageRequest.of(pageNumber,pageSize, sort);
+        Pageable p = PageRequest.of(pageNumber, pageSize, sort);
 
 
-        if(tile.equalsIgnoreCase("")){
-            Page<Course>  pageCourse =  cDao.findAll(p);
+        if (tile.equalsIgnoreCase("")) {
+            Page<Course> pageCourse = cDao.findAll(p);
 
-            List<Course>  allCourse =  pageCourse.getContent();
+            List<Course> allCourse = pageCourse.getContent();
 
             CourseResponse courseResponse = new CourseResponse();
 
@@ -113,14 +108,12 @@ public class CourseServiceImpl implements CourseService{
             courseResponse.setLast(pageCourse.isLast());
 
             return courseResponse;
-        }
-
-        else{
+        } else {
 //            Page<Course>  pageCourse  = cDao.findByCourseName(tile, p);
 
-            Page<Course>  pageCourse  = cDao.search(tile, p);
+            Page<Course> pageCourse = cDao.search(tile, p);
 
-            List<Course>  allCourse =  pageCourse.getContent();
+            List<Course> allCourse = pageCourse.getContent();
 
             CourseResponse courseResponse = new CourseResponse();
 
@@ -135,7 +128,13 @@ public class CourseServiceImpl implements CourseService{
         }
 
 
+    }
 
+    @Override
+    public CriteriaResponse getAllCourseByPaginationCriteria(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+
+        CriteriaResponse courses =  customDaoInterface.getFilterCourses(name,pageNumber,pageSize,sortBy,sortDir);
+        return courses;
     }
 
 
