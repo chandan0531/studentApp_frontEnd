@@ -3,17 +3,20 @@
 <table class="table table-striped"> 
 
     <thead>
-        <th> stdId</th>
-        <th> Name</th>
-        <th>Gender</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>CourseID</th>
-        <th>Address</th>
-        <th>Changes</th>
+        <th> stdId <span class="glyphicon glyphicon-sort" ></span> 
+
+        </th>
+
+        <th> Name   <span class="glyphicon glyphicon-sort"></span> </th>
+        <th>Gender   <span class="glyphicon glyphicon-sort"></span> </th>
+        <th>Phone  <span class="glyphicon glyphicon-sort"></span> </th>
+        <th>Email  <span class="glyphicon glyphicon-sort"></span> </th>
+        <th>CourseID   <span class="glyphicon glyphicon-sort"></span> </th>
+        <th>Address </th>
+        <th>Changes   </th>
     </thead>
 <tbody>
-    <tr *ngFor = "let x of students">
+    <tr *ngFor = "let x of studentResponse.content">
         <td> {{x.studentId}}</td>
         <td> {{x.name}}</td>
         <td> {{x.gender}}</td>
@@ -32,3 +35,13 @@
 </tbody>
 
 </table>
+
+
+
+<ul class="nav nav-pills"  style="margin-top: 10px;">
+    <!-- <a class ="nav-link" id="preNext"  (click) = "setPageNoPre()"> pre </a> -->
+    <li class="nav-item" *ngFor = "let x of pages; let i=index">
+      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i}}</a>
+    </li>
+    <!-- <a class ="nav-link" id="preNext"  (click) = "setPageNoNext()"> Next </a> -->
+  </ul>

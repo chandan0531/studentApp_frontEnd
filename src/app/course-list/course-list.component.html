@@ -13,7 +13,7 @@
     <thead>
 
         <th > courseId <button type="button" class="btn btn-default btn-sm" (click) = "sortByCourseId()">
-            <span class="glyphicon glyphicon-sort"></span> {{buttonTextCI}}
+            <span class="glyphicon glyphicon-sort"></span> {{buttonTextCI }}
           </button></th>
 
         <th> courseName <button type="button" class="btn btn-default btn-sm" (click) = "sortByCourseName()">
@@ -39,6 +39,7 @@
         </th>
         <!-- <th>Edit Course</th> -->
         <th>Add Student</th>
+
     </thead>
 <tbody>
 
@@ -83,7 +84,7 @@
   <ul class="nav nav-pills"  style="margin-top: 10px;">
     <a class ="nav-link" id="preNext"  (click) = "setPageNoPre()"> pre </a>
     <li class="nav-item" *ngFor = "let x of pages; let i=index">
-      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i}}</a>
+      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i+1}}</a>
     </li>
     <a class ="nav-link" id="preNext"  (click) = "setPageNoNext()"> Next </a>
   </ul>

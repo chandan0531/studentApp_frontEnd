@@ -7,6 +7,7 @@ import { Course } from '../course';
 import { Address } from '../address';
 import { StudentDto } from '../student-dto';
 import { CourseResponse } from '../course-response';
+import { StudentResponse } from '../student-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class StudentDataService {
   urlA = "http://localhost:8080/api/address";
 
   urlP = "http://localhost:8080/api/coursePage";
+
+  urlSP = "http://localhost:8080/api/studentPageCriteria";
 
   constructor( private httpClient:HttpClient) { }
 
@@ -90,7 +93,11 @@ getAllCoursesByPage(title:any, pageNo:any, pageSize:any, sortBy:any,sortDir:any)
 //http://localhost:8080/api/coursePage?pageNo=0&pageSize=2&sortBy=duration&sortDir=desc
 
 
+// get All students by Page
+getAllStudentByPage(title:any, pageNo:any, pageSize:any, sortBy:any,sortDir:any):Observable<StudentResponse>{
 
+return this.httpClient.get<StudentResponse>(`${this.urlSP}?title=${title}&pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`)
+}
 
 
 }
