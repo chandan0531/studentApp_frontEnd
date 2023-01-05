@@ -269,5 +269,10 @@ public class StudentServiceImpl implements StudentService{
         return  customDaoInterface.getFilterStudent(name,pageNumber,pageSize,sortBy,sortDir);
     }
 
+    @Override
+    public List<Student> getAllStudentHQL() {
+        return  customDaoInterface.getAllStudentHQL();
+    }
+
 
 }

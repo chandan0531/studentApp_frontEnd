@@ -48,4 +48,7 @@ public interface StudentService {
 
 
     public StudentResponse getAllStudentByPaginationCriteria(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+    public  List<Student> getAllStudentHQL();
+
 }

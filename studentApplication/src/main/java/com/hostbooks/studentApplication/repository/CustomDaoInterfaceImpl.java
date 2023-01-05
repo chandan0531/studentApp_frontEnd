@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -213,10 +214,99 @@ public class CustomDaoInterfaceImpl implements CustomDaoInterface {
             typedQuery.setFirstResult((pageNumber.intValue()-1)*pageSize.intValue());
         }
         typedQuery.setMaxResults(pageSize.intValue());
+
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setContent(typedQuery.getResultList());
         studentResponse.setTotalPage((count/pageSize)+1);
         return studentResponse;
+    }
+
+    //using HQL
+    @Override
+    public List<Student> getAllStudentHQL() {
+//        String hql = "FROM com.hostbooks.studentApplication.entities.Student";
+//        String hql = "select s.name from Student s";
+//        String hql = "from Student s where s.studentId>10 order by s.name desc";
+        String hql1 = "from Student s where s.studentId=:id";
+//        String hql1 = "update Student s set s.gender=:gen where s.studentId=:id";
+        Session session =  em.unwrap(Session.class);
+        Query query = session.createQuery(hql1);
+//        query.setParameter("gen", "female");
+        query.setParameter("id", 54);
+
+//       int update =  query.executeUpdate();
+//       System.out.println(update);
+        List<Student> list = query.getResultList();
+        return list;
+    }
+
+    @Override
+    public StudentResponse getStudentPaginationHQL(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+
+        String hql = "";
+        if(!sortBy.equals("") && sortBy.equalsIgnoreCase("name")){
+            if(sortDir.equalsIgnoreCase("asc"))
+            hql = "from Student s order by s.name asc";
+            else
+                hql = "from Student s order by s.name desc";
+        }
+        if(!sortBy.equals("") && sortBy.equalsIgnoreCase("cellPhone")){
+            if(sortDir.equalsIgnoreCase("asc"))
+                hql = "from Student s order by s.cellPhone asc";
+            else
+                hql = "from Student s order by s.cellPhone desc";
+        }
+        else {
+            hql = "from Student s order by s.studentId asc";
+        }
+
+        Session session = em.unwrap(Session.class);
+
+        org.hibernate.query.Query  query = session.createQuery(hql);
+        query.setFirstResult(pageNumber);
+        query.setMaxResults(pageSize);
+
+        List<Student> list = query.list();
+        StudentResponse studentResponse = new StudentResponse();
+        studentResponse.setContent(list);
+        studentResponse.setTotalPage((long)2);
+
+        return studentResponse;
+    }
+
+    @Override
+    public List<Course> getCourseByNameQuery(String name) {
+
+        Session session = em.unwrap(Session.class);
+        org.hibernate.query.Query query = session.getNamedQuery("findByCourseName");
+
+        query.setParameter("cname", name);
+        List<Course> list =  query.list();
+        return list;
+    }
+
+    @Override
+    public List<Object[]> getDetailsJoin() {
+
+        Session session =  em.unwrap(Session.class);
+        String hql = "Select s.name, s.cellPhone, c.courseName, c.courseId from Student as s INNER JOIN s.course as c";
+//      String hql = "Select s.name, s.cellPhone, c.courseName, c.courseId from Student as s INNER JOIN s.course as c where s.studentId=54";
+        String hql1 = "Select s.name, s.cellPhone, c.courseName, c.courseId from Student as s INNER JOIN s.course as c order by c.courseName";
+        org.hibernate.query.Query query = session.createQuery(hql1);
+
+        List<Object[]> list = query.list();
+        return list;
+    }
+
+    @Override
+    public String updateCourseHql() {
+        Session session = em.unwrap(Session.class);
+//        String hql = "update Course c set c.courseName=:new from Course c INNER JOIN c.student s where s.studentId=54";
+        String hql = "update Course c set c.courseName=:new where c.courseId IN (select s.studentId from Student s where s.studentId=54";
+        org.hibernate.query.Query query = session.createQuery(hql);
+        query.setParameter("new", "java core");
+        List<Course> course = query.list();
+        return course+"done";
     }
 
 

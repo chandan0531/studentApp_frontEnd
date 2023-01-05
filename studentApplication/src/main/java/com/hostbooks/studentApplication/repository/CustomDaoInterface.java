@@ -28,4 +28,18 @@ public interface CustomDaoInterface {
     public CriteriaResponse getFilterCourses(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
     public StudentResponse getFilterStudent(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+    //HQL
+    public List<Student> getAllStudentHQL();
+
+    public StudentResponse getStudentPaginationHQL(String name, Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+    //namedQuery
+    public List<Course> getCourseByNameQuery(String name);
+
+    // join HQL
+    public List<Object[]> getDetailsJoin();
+
+    public String updateCourseHql();
+
 }

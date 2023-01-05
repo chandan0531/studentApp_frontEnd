@@ -5,8 +5,10 @@ import com.hostbooks.studentApplication.dto.CriteriaResponse;
 import com.hostbooks.studentApplication.dto.PageConstants;
 import com.hostbooks.studentApplication.dto.StudentDto;
 import com.hostbooks.studentApplication.dto.StudentResponse;
+import com.hostbooks.studentApplication.entities.Course;
 import com.hostbooks.studentApplication.entities.Student;
 import com.hostbooks.studentApplication.exception.MyError;
+import com.hostbooks.studentApplication.repository.CustomDaoInterface;
 import com.hostbooks.studentApplication.service.AddressService;
 import com.hostbooks.studentApplication.service.StudentService;
 import com.hostbooks.studentApplication.validator.StudentUpdateValidator;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,6 +39,8 @@ public class StudentController {
     @Autowired
     private AddressService aService;
 
+    @Autowired
+    private CustomDaoInterface customDaoInterface;
 
     @Qualifier("validator")
     @Autowired
@@ -46,6 +51,7 @@ public class StudentController {
         binder.setValidator(studentValidator);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("api/students")
     ResponseEntity<?> createStudentController(@Valid @RequestBody StudentDto studentDto, Errors errors, WebRequest webRequest){
 
@@ -88,6 +94,7 @@ public class StudentController {
 
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("api/students/{Id}")
     ResponseEntity<String> deleteStudentByIdController(@PathVariable Integer Id){
 
@@ -139,6 +146,7 @@ public class StudentController {
 
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("api/studentsCustom")
     ResponseEntity<?> addStudentByDTOController(@RequestBody StudentDto studentDto, Errors error){
 //        System.out.println("kuch v karo");
@@ -176,4 +184,53 @@ public class StudentController {
         return new  ResponseEntity<>(studentResponse, HttpStatus.ACCEPTED);
     }
 
+
+    @GetMapping("api/studentHQL")
+    ResponseEntity<List<Student>> getAllStudentHQL(){
+        List<Student> stds = sService.getAllStudentHQL();
+
+        return new ResponseEntity<List<Student>>(stds,HttpStatus.ACCEPTED);
+    }
+
+
+    @GetMapping("api/studentPageHQL")
+    ResponseEntity<StudentResponse> getAllStudentsByPageControllerHQL(
+            @RequestParam(value = "title", defaultValue = "", required = false) String title,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "2", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "studentId", required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
+    ){
+
+        StudentResponse studentResponse = customDaoInterface.getStudentPaginationHQL(title, pageNo,pageSize, sortBy, sortDir);
+
+        return new  ResponseEntity<>(studentResponse, HttpStatus.ACCEPTED);
+    }
+
+
+
+    @GetMapping("api/courseNamedQuery/{name}")
+    ResponseEntity<List<Course>> getAllCourseByName(@PathVariable String name){
+
+       List<Course> courses =  customDaoInterface.getCourseByNameQuery(name);
+
+        return new ResponseEntity<>(courses,HttpStatus.ACCEPTED);
+    }
+
+
+    @GetMapping("joinHql")
+    ResponseEntity<List<Object[]>> getStudentJoinCourse(){
+
+        List<Object[]> join =  customDaoInterface.getDetailsJoin();
+
+        return new ResponseEntity<>(join,HttpStatus.ACCEPTED);
+    }
+
+//    @PutMapping("updateJoinHql")
+//    ResponseEntity<String> updateJoinCourse(){
+//
+//       String join =  customDaoInterface.updateCourseHql();
+//
+//        return new ResponseEntity<>(join,HttpStatus.ACCEPTED);
+//    }
 }

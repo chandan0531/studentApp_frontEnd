@@ -1,7 +1,5 @@
 package com.hostbooks.studentApplication.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,8 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
-@Entity
+@org.hibernate.annotations.NamedQueries(
+        {
+                @org.hibernate.annotations.NamedQuery(
+                        name = "findByCourseName",
+                        query = "from Course c where c.courseName=:cname"
+                )
+        }
+)
 
+
+
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
