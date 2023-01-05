@@ -1,0 +1,22 @@
+<p>loginpage works!</p>
+
+<form #form = "ngForm" (ngSubmit) = "onSubmit()">
+
+
+    <div class="form-group">
+        <label>UserName</label>
+        <input type="text" class="form-control"  required #na = "ngModel" id="username"  [(ngModel)] = "username" name="username"  placeholder="Enter Name"/>
+        
+    <span *ngIf="na.invalid && na.touched" style="color: red;"> Please enter UserName</span>
+    </div>
+    
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" required #gen = "ngModel" id="password" [(ngModel)] = "password" name="password" placeholder="Enter password"/>
+        
+        <span *ngIf="gen.invalid && gen.touched" style="color: red;"> Please enter password</span>
+    </div>
+
+
+    <button [disabled] = "form.invalid" class="btn btn-success" type="submit"> Login</button>
+    </form>

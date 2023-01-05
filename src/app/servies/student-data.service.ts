@@ -24,6 +24,8 @@ export class StudentDataService {
 
   urlSP = "http://localhost:8080/api/studentPageCriteria";
 
+  urlAutho = "http://localhost:8080/api/login";
+
   constructor( private httpClient:HttpClient) { }
 
 
@@ -99,5 +101,11 @@ getAllStudentByPage(title:any, pageNo:any, pageSize:any, sortBy:any,sortDir:any)
 return this.httpClient.get<StudentResponse>(`${this.urlSP}?title=${title}&pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`)
 }
 
+
+
+// get authorised
+getAuthorised(){
+  return this.httpClient.get(`${this.urlAutho}`,{responseType:'text' as 'json'});
+}
 
 }

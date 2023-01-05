@@ -16,7 +16,9 @@
         <th>Changes   </th>
     </thead>
 <tbody>
-    <tr *ngFor = "let x of studentResponse.content">
+    <tr *ngFor = "let x of students">
+        <!-- studentResponse.content -->
+
         <td> {{x.studentId}}</td>
         <td> {{x.name}}</td>
         <td> {{x.gender}}</td>
@@ -29,6 +31,9 @@
         <td>
             <button (click) = "updateStudent(x.studentId)" class="btn btn-info">Edit</button>
             <button (click) = "deletStudentById(x.studentId)" class="btn btn-danger" style="margin-left: 20px">Delete</button>
+            <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                <mat-icon>delete</mat-icon>
+              </button>
         </td>
     </tr>
 
@@ -39,9 +44,12 @@
 
 
 <ul class="nav nav-pills"  style="margin-top: 10px;">
-    <!-- <a class ="nav-link" id="preNext"  (click) = "setPageNoPre()"> pre </a> -->
+    <a class ="nav-link" id="preNext"  (click) = "setPageNoPre()"> pre </a>
     <li class="nav-item" *ngFor = "let x of pages; let i=index">
-      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i}}</a>
+      <a class ="nav-link" (click) = "setPageNo(i)" [ngClass]="{'active' : i==pageNo}">{{i+1}}</a>
     </li>
-    <!-- <a class ="nav-link" id="preNext"  (click) = "setPageNoNext()"> Next </a> -->
+    <a class ="nav-link" id="preNext"  (click) = "setPageNoNext()"> Next </a>
   </ul>
+
+
+ 

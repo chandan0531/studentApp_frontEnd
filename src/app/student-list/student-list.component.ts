@@ -75,8 +75,31 @@ constructor(private studentService:StudentDataService, private router: Router){}
 
 
   setPageNo(val:any){
-    this.pageNo= val-1;
+    this.pageNo= val;
+    console.log(this.pageNo, "page no")
+    console.log(val, " val")
     this.getAllStudentByPagination();
   }
+
+
+  setPageNoNext(){
+    if(this.pages.length  > this.pageNo){
+      console.log(this.pages.length , "length")
+     
+      this.pageNo++;
+      console.log(this.pageNo , " next")
+      this.getAllStudentByPagination();
+    }
+  
+   }
+   setPageNoPre(){
+    if(this.pageNo>0){
+      console.log(this.pageNo , " pre")
+      this.pageNo--;
+      this.getAllStudentByPagination();
+    }
+    
+   }
+
 
 }

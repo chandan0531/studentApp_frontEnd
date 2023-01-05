@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { AddressListComponent } from './address-list/address-list.component';
 import { CourseListComponent } from './course-list/course-list.component';
+import { LoginpageComponent } from './loginpage/loginpage.component';
 import { SaveAddressComponent } from './save-address/save-address.component';
 import { SaveCourseComponent } from './save-course/save-course.component';
 import { StudentListComponent } from './student-list/student-list.component';
@@ -43,8 +44,12 @@ const routes: Routes = [
     component:AddressListComponent
   },
   {
+    path:'login',
+    component:LoginpageComponent
+  },
+  {
     path:'', 
-    redirectTo: 'students',pathMatch:'full'
+    redirectTo: 'login',pathMatch:'full'
   }
 ];
 
