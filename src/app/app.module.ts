@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,7 @@ import{MatButtonModule} from '@angular/material/button'
 import{MatIconModule} from '@angular/material/icon';
 import { LoginpageComponent } from './loginpage/loginpage.component'
 import{IntercetorurlInterceptor} from './intercetorurl.interceptor'
+import { User } from './user';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import{IntercetorurlInterceptor} from './intercetorurl.interceptor'
     MatIconModule
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass:IntercetorurlInterceptor, multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:IntercetorurlInterceptor, multi:true},
+
+    LoginpageComponent, User
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
-import { Component,OnInit, Output,EventEmitter } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentDataService } from '../servies/student-data.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-loginpage',
@@ -11,34 +12,55 @@ export class LoginpageComponent {
 
   username:any;
   password:any;
+  
+  user:User=new User();
+  object:any=[];
+  loginFlag = false;
 
-@Output() event = new EventEmitter<any>();
 
   constructor(private studentService:StudentDataService, private router:Router,
   private route:ActivatedRoute){}
 
   ngOnInit(): void {
-    this.getAutho();
-    
+    // this.getAutho();
+    this.object.push("dfhsgfgsdk")
   }
 
 
   getAutho(){
     this.studentService.getAuthorised().subscribe(data=>{
-      console.log(data, "autho");
-    }, error=>console.log(error))
+      console.log(data, "authofjfjghf");
+      this.router.navigate(['/students']);
+
+    }, error=>
+    alert("UnAuthorised")
+    // console.log(error, "myerror")
+    )
+
+
+    
   }
 
   onSubmit(){
-    this.router.navigate(['/students']);
+
     localStorage.setItem("username", this.username);
     localStorage.setItem("password", this.password);
-    this.sendData()
-  }
+    
+    console.log(this.username,"login user")
+   
+    this.getAutho();
+   
+      // this.router.navigate(['/students']);
+    
 
 
-  sendData(){
-    this.event.emit(this.username)
   }
+
+  // x:any;
+  // getData(i:any){
+  //   this.x = i;
+  //   console.log(this.x)
+  
+  // }
 
 }

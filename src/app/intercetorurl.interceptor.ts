@@ -1,4 +1,4 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -7,7 +7,9 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { LoginpageComponent } from './loginpage/loginpage.component'; 
+
+import { LoginpageComponent } from './loginpage/loginpage.component';
+import { User } from './user';
 
 @Injectable()
 export class IntercetorurlInterceptor implements HttpInterceptor {
@@ -15,16 +17,21 @@ export class IntercetorurlInterceptor implements HttpInterceptor {
 
   user1: any;
 
-  constructor() {   }
+  constructor(private loginpage: LoginpageComponent, private userlg: User) { }
 
+  // ngOnInit(): void {
+  //   this.user1 = this.loginpage.username;
+  //   console.log(this.user1, "new user chchchc")
 
+  // }
 
   createBasicAuthToken() {
 
     let username = localStorage.getItem("username")
     let password = localStorage.getItem("password")
 
-    // console.log(username, password, "hi i am chandan")
+    // this.user1 = this.loginpage.username;
+    console.log(this.loginpage.username, "new user chchchc")
     return 'Basic ' + window.btoa(username + ":" + password);
 
   }
@@ -34,10 +41,11 @@ export class IntercetorurlInterceptor implements HttpInterceptor {
 
     let reqUrl: String = request.url;
     if (!request.headers.has('authorization')) {
-
       request = request.clone({ headers: request.headers.set('authorization', this.createBasicAuthToken()) });
     }
     console.log(request, "request by my")
+
+
     return next.handle(request);
   }
 }

@@ -108,4 +108,9 @@ getAuthorised(){
   return this.httpClient.get(`${this.urlAutho}`,{responseType:'text' as 'json'});
 }
 
+// getAuthorised1(username:any, password:any){
+//   return this.httpClient.get(`${this.urlAutho}`,{responseType:`${username}, ${password}` as 'json'});
+// }
+
+
 }

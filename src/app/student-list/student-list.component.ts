@@ -51,7 +51,7 @@ constructor(private studentService:StudentDataService, private router: Router){}
       console.log(data);
    
       this.getStudent();
-    }))
+    }),error=>alert("UnAuthoried person"))
   }
 
 
