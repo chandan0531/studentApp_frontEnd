@@ -6,3 +6,14 @@ ul{
     padding: 0;
     white-space: nowrap;
   }
+  #logout{
+    float: right;
+    margin-left: 500px;
+  }
+  #add{
+    color: aqua;
+    cursor: pointer;
+  }
+  #add:hover{
+    color: aquamarine;
+  }

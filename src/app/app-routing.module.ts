@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { AddressListComponent } from './address-list/address-list.component';
+import { AuthguardGuard } from './authguard.guard';
 import { CourseListComponent } from './course-list/course-list.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { SaveAddressComponent } from './save-address/save-address.component';
@@ -12,44 +13,44 @@ import { UpdateStudentComponent } from './update-student/update-student.componen
 
 const routes: Routes = [
   {
-    path : 'students',
+    path: 'students',canActivate:[AuthguardGuard],
     component: StudentListComponent
   },
   {
-    path:'updateStudent/:id',
-    component : UpdateStudentComponent
+    path: 'updateStudent/:id',
+    component: UpdateStudentComponent
   },
   {
-    path :'saveStudent/:id',
-    component:AddStudentComponent
+    path: 'saveStudent/:id',
+    component: AddStudentComponent
   },
   {
     path: 'saveAddress/:id',
-    component:SaveAddressComponent
+    component: SaveAddressComponent
   },
   {
-    path:'savecourses',
+    path: 'savecourses',canActivate:[AuthguardGuard],
     component: SaveCourseComponent
   },
   {
-    path:'courses',
-    component:CourseListComponent
+    path: 'courses', canActivate:[AuthguardGuard],
+    component: CourseListComponent
   },
   {
-    path:'updateCourse/:id',
-    component:UpdateCourseComponent
+    path: 'updateCourse/:id',
+    component: UpdateCourseComponent
   },
   {
-    path:'addresses',
-    component:AddressListComponent
+    path: 'addresses',
+    component: AddressListComponent
   },
   {
-    path:'login',
-    component:LoginpageComponent
+    path: 'login',
+    component: LoginpageComponent
   },
   {
-    path:'', 
-    redirectTo: 'login',pathMatch:'full'
+    path: '',
+    redirectTo: 'login', pathMatch: 'full'
   }
 ];
 

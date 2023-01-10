@@ -13,16 +13,19 @@
     </li>
 
     <li class="navbar-item">
-      <a routerLink="students" routerLinkActive="active" class="nav-link">Students list</a>
+      <a routerLink="students" routerLinkActive="active" class="nav-link" >Students list</a>
+      <!-- <a  class="nav-link" (click) = "studentslink()" id="add"> Students list</a> -->
     </li>
 
 
     <li class="navbar-item">
-      <a routerLink="addresses" routerLinkActive="active" class="nav-link">Address list</a>
+      <!-- <a routerLink="addresses" routerLinkActive="active" class="nav-link">Address list</a> -->
+      <a  class="nav-link" (click) = "addresslink()" id="add"> Address list</a>
     </li>
 
 
-
+    <button class="btn btn-danger" id="logout" (click)="getIntLoginpage()" >Logout</button>
+    <!-- [disabled] = "local==null" -->
   </ul>
 </nav>
 <div class="container">

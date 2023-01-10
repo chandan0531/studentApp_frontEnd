@@ -43,6 +43,7 @@ export class LoginpageComponent {
 
   onSubmit(){
 
+    
     localStorage.setItem("username", this.username);
     localStorage.setItem("password", this.password);
     
@@ -51,8 +52,6 @@ export class LoginpageComponent {
     this.getAutho();
    
       // this.router.navigate(['/students']);
-    
-
 
   }
 
@@ -62,5 +61,16 @@ export class LoginpageComponent {
   //   console.log(this.x)
   
   // }
+
+
+  isLogInOrOut(){
+    if(localStorage.getItem("username") && localStorage.getItem("password")){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
 
 }
