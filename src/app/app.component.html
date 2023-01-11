@@ -24,7 +24,7 @@
     </li>
 
 
-    <button class="btn btn-danger" id="logout" (click)="getIntLoginpage()" >Logout</button>
+    <button class="btn btn-danger" id="logout" (click)="getIntLoginpage()" [disabled] = "local==null">Logout</button>
     <!-- [disabled] = "local==null" -->
   </ul>
 </nav>

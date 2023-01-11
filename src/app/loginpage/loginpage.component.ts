@@ -52,7 +52,7 @@ export class LoginpageComponent {
     this.getAutho();
    
       // this.router.navigate(['/students']);
-
+  
   }
 
   // x:any;

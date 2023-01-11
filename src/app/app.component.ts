@@ -12,11 +12,22 @@ export class AppComponent implements OnInit {
 
   constructor(private studentService:StudentDataService, private router:Router,
     private route:ActivatedRoute){}
+    // btnstate: boolean=false;
 
-    local = localStorage.getItem("username")
+    local=localStorage.getItem("username");
 
     ngOnInit(): void {
-      // this.local = localStorage.getItem("username");
+      if(localStorage.getItem("username")=="chandan"|| localStorage.getItem("username")=="deepak"){
+        this.local = localStorage.getItem("username");
+      }
+      // if(localStorage.getItem("username")){
+      //   this.btnstate = true;
+      
+      // }
+      // else{
+      //   this.btnstate = false;
+      // }
+      // console.log(this.btnstate)
     }
 
   getIntLoginpage(){
@@ -24,6 +35,7 @@ export class AppComponent implements OnInit {
   // localStorage.setItem("username", "null")
   // localStorage.setItem("password", "null")
   localStorage.clear();
+  
   }
 
 
